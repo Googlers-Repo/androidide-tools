@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/system/bin/env bash
 
 set -eu
 
@@ -82,7 +82,7 @@ download_and_extract() {
 
     if [ "$do_download" = "true" ]; then
         print_info "Downloading $name..."
-        curl -L -o $dest $url
+        xh -d $url -o $dest
         print_success "$name has been downloaded."
         echo ""
     fi
@@ -195,15 +195,15 @@ if [ ! command -v $pkgm &> /dev/null ]; then
 fi
 
 # Install required packages
-print_info "Installing required packages.."
-$pkgm install $pkg_curl jq tar
-print_success "Packages installed"
-echo ""
+# print_info "Installing required packages.."
+# $pkgm install $pkg_curl jq tar
+# print_success "Packages installed"
+# echo ""
 
 # Download the manifest.json file
 print_info "Downloading manifest file..."
 downloaded_manifest="$install_dir/manifest.json"
-curl -L -o $downloaded_manifest $manifest
+xh -d $manifest -o $downloaded_manifest
 print_success "Manifest file downloaded"
 echo ""
 
